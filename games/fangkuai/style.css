@@ -134,6 +134,28 @@ body {
     transform: translateY(-2px);
 }
 
+/* --- 返回首页 按钮 --- */
+.home-link {
+    padding: 12px 40px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: rgba(255, 215, 0, 0.2);
+    border: 2px solid rgba(255, 215, 0, 0.5);
+    border-radius: 25px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-block;
+    text-align: center;
+}
+
+.home-link:hover {
+    background: rgba(255, 215, 0, 0.35);
+    border-color: rgba(255, 215, 0, 0.8);
+    transform: translateY(-2px);
+}
+
 /* --- 独立设置面板（模态风格） --- */
 .settings-panel {
     position: absolute;
@@ -523,6 +545,11 @@ body {
 }
 
 .game-over .setting-btn {
+    padding: 10px 34px;
+    font-size: 15px;
+}
+
+.game-over .home-link {
     padding: 10px 34px;
     font-size: 15px;
 }

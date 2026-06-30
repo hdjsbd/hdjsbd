@@ -649,6 +649,7 @@ function endGame() {
         <div class="button-row">
             <button class="restart-btn">🔄 重新开始</button>
             <button class="setting-btn" id="restart-setting-btn">⚙️ 设置</button>
+            <a href="../../index.html" class="home-link">🏠 返回首页</a>
         </div>
     `;
 
