@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>方块消消乐</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-area" id="game-area">
+        <div class="speed-display" id="speed-display">速度: <span id="speed">0.5</span></div>
+        <div class="score-display" id="score-display">得分: <span id="score">0</span></div>
+
+        <!-- 开始屏幕：只有两个按钮 -->
+        <div class="start-screen" id="start-screen">
+            <h1 class="game-title">🎮 方块消消乐</h1>
+            <p class="game-subtitle">—— 好想安静地写代码</p>
+            <div class="button-row">
+                <button id="start-btn">🚀 开始游戏</button>
+                <button class="setting-btn" id="start-setting-btn">⚙️ 设置</button>
+            </div>
+        </div>
+
+        <!-- 独立设置面板 -->
+        <div class="settings-panel" id="settings-panel">
+            <div class="settings-header">
+                <h2>⚙️ 游戏设置</h2>
+                <button class="close-btn" id="close-settings-btn">✕</button>
+            </div>
+
+            <div class="setting-row">
+                <div class="setting-label">🎨 画布宽度</div>
+                <div class="setting-control">
+                    <input type="range" id="size-slider" min="300" max="1000" value="600">
+                    <input type="number" id="size-input" min="300" max="1000" value="600">
+                    <span>px</span>
+                </div>
+            </div>
+
+            <div class="setting-row">
+                <div class="setting-label">🎯 难度</div>
+                <div class="difficulty-options">
+                    <label class="difficulty-option">
+                        <input type="radio" name="difficulty" value="beginner" checked>
+                        <span>菜鸟模式</span>
+                    </label>
+                    <label class="difficulty-option">
+                        <input type="radio" name="difficulty" value="advanced">
+                        <span>老鸟模式</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="setting-row column">
+                <div class="setting-label">🖼️ 方块图片</div>
+                <div class="block-image-section">
+                    <div class="upload-btn-wrapper">
+                        <label class="upload-btn" for="block-images-input">
+                            <span class="upload-icon">📁</span>
+                            <span class="upload-text">选择9张图片</span>
+                        </label>
+                        <input type="file" id="block-images-input" accept="image/*" multiple style="display:none;">
+                    </div>
+                    <div class="block-image-inputs" id="block-image-inputs"></div>
+                    <button class="clear-btn" id="clear-block-images">🗑️ 清除方块图片</button>
+                </div>
+            </div>
+
+            <div class="setting-row column">
+                <div class="setting-label">🌄 画布背景</div>
+                <div class="bg-image-section">
+                    <label class="upload-btn" for="bg-image-input">
+                        <span class="upload-icon">📷</span>
+                        <span class="upload-text" id="bg-image-status">选择背景图片</span>
+                    </label>
+                    <input type="file" id="bg-image-input" accept="image/*" style="display:none;">
+                    <button class="clear-btn" id="clear-bg-image">🗑️ 清除背景</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

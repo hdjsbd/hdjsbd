@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>好想安静地写代码</title>
+    <link rel="stylesheet" href="home-style.css">
+</head>
+<body>
+    <div class="home-container">
+
+        <!-- 玩法说明弹窗 -->
+        <div class="modal-overlay" id="rule-modal" style="display:none;">
+            <div class="modal-box">
+                <button class="modal-close" id="rule-close">✕</button>
+                <h2 class="modal-title" id="rule-title">方块消消乐</h2>
+                <div class="modal-content">
+                    <div class="rule-section">
+                        <h3>🎯 游戏目标</h3>
+                        <p>控制方块左右移动和切换颜色，让相同颜色的方块聚集在一起，实现连锁消除，获得更高的分数。</p>
+                    </div>
+                    <div class="rule-section">
+                        <h3>🎮 操作方式</h3>
+                        <ul>
+                            <li><kbd>A</kbd> - 向左移动方块</li>
+                            <li><kbd>D</kbd> - 向右移动方块</li>
+                            <li><kbd>S</kbd> - 加速下落</li>
+                            <li><kbd>空格</kbd> - 切换方块颜色（在随机的三种颜色中循环）</li>
+                        </ul>
+                    </div>
+                    <div class="rule-section">
+                        <h3>🌈 消除规则</h3>
+                        <ul>
+                            <li>方块下落到底部或其他方块上时停止</li>
+                            <li>相邻（上下左右）同色方块数量≥3 时，这些方块会一起消失</li>
+                            <li>每消除一个方块得 10 分</li>
+                            <li>消除后上方方块会自动下落填补空位，可能触发连锁消除</li>
+                        </ul>
+                    </div>
+                    <div class="rule-section">
+                        <h3>📈 难度递增</h3>
+                        <p>每获得 120 分，方块下落速度会提升一级，最高速度限制为 8 倍。方块越来越难控制！</p>
+                    </div>
+                    <div class="rule-section">
+                        <h3>⚙️ 设置项</h3>
+                        <ul>
+                            <li>画布宽度：300px ~ 1000px，可实时调整</li>
+                            <li>难度：菜鸟模式显示数字，老鸟模式不显示</li>
+                            <li>方块图片：可上传自定义图片</li>
+                            <li>背景图片：可上传自定义背景</li>
+                        </ul>
+                    </div>
+                    <div class="rule-section">
+                        <h3>💀 游戏结束</h3>
+                        <p>当方块堆到画布顶部且无法再放下新方块时，游戏结束。点击"重新开始"可以重置游戏。</p>
+                    </div>
+                </div>
+                <a href="games/fangkuai/index.html" class="modal-start-btn">🚀 开始游戏</a>
+            </div>
+        </div>
+        <!-- 主标题区域 -->
+        <header class="hero">
+            <h1 class="main-title">好想安静地写代码</h1>
+            <p class="subtitle">—— 我的小游戏作品集</p>
+        </header>
+
+        <!-- 游戏列表区域 -->
+        <main class="games-section">
+            <div class="section-header">
+                <h2>🎮 游戏列表</h2>
+                <p class="section-hint">点击卡片按钮开始游戏或查看玩法说明</p>
+            </div>
+
+            <div class="game-cards">
+                <!-- 游戏卡片 1：方块消消乐 -->
+                <div class="game-card">
+                    <div class="card-preview">
+                        <div class="preview-blocks">
+                            <span style="background:#E53935">1</span>
+                            <span style="background:#1E88E5">2</span>
+                            <span style="background:#43A047">3</span>
+                            <span style="background:#FDD835">4</span>
+                            <span style="background:#FB8C00">5</span>
+                            <span style="background:#8E24AA">6</span>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">方块消消乐</h3>
+                        <p class="card-desc">九种颜色方块下落，相同颜色连在一起即可消除得分</p>
+                        <div class="card-meta">
+                            <span>🕹️ 休闲益智</span>
+                            <span class="card-status">✅ 已上线</span>
+                        </div>
+                        <div class="card-buttons">
+                            <a href="games/fangkuai/index.html" class="btn btn-primary">🚀 开始游戏</a>
+                            <button class="btn btn-secondary" id="show-rules-btn">📖 玩法说明</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 预留卡片：更多游戏即将上线 -->
+                <div class="game-card coming-soon">
+                    <div class="card-preview">
+                        <div class="preview-placeholder">⏳</div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">更多游戏</h3>
+                        <p class="card-desc">敬请期待，持续更新中...</p>
+                        <div class="card-meta">
+                            <span>🚧 开发中</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>© 2026 好想安静地写代码</p>
+        </footer>
+    </div>
+    <script src="home-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,547 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-area {
+    position: relative;
+    width: 600px;
+    height: 900px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background-size: cover;
+    background-position: center;
+}
+
+/* --- 角落信息显示 --- */
+.speed-display {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 10;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.3);
+    padding: 8px 14px;
+    border-radius: 10px;
+}
+
+.score-display {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 10;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.3);
+    padding: 8px 14px;
+    border-radius: 10px;
+}
+
+/* --- 开始屏幕（简洁版） --- */
+.start-screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 20;
+    width: 90%;
+}
+
+.game-title {
+    color: #fff;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    text-shadow: 0 4px 12px rgba(102, 126, 234, 0.6);
+    letter-spacing: 2px;
+}
+
+.game-subtitle {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 36px;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    text-align: right;
+    width: 100%;
+}
+
+.button-row {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+/* --- 开始/重新开始 按钮 --- */
+#start-btn {
+    padding: 18px 50px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+}
+
+#start-btn:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
+}
+
+#start-btn:active {
+    transform: translateY(-1px) scale(1.01);
+}
+
+/* --- 设置 按钮 --- */
+.setting-btn {
+    padding: 12px 40px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.setting-btn:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+/* --- 独立设置面板（模态风格） --- */
+.settings-panel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 20px;
+    padding: 24px 28px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    width: 85%;
+    z-index: 200;
+    max-height: 90%;
+    overflow-y: auto;
+    display: none;
+}
+
+.settings-panel.active {
+    display: block;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.settings-header h2 {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.close-btn {
+    background: rgba(255, 107, 107, 0.3);
+    color: #fff;
+    border: 1px solid rgba(255, 107, 107, 0.5);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    background: rgba(255, 107, 107, 0.6);
+    border-color: rgba(255, 107, 107, 0.8);
+    transform: rotate(90deg);
+}
+
+/* --- 设置行 --- */
+.setting-row {
+    color: #fff;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.setting-row:last-child {
+    margin-bottom: 0;
+}
+
+.setting-row.column {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+}
+
+.setting-label {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.setting-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-size: 14px;
+}
+
+/* --- 难度选项 --- */
+.difficulty-options {
+    display: flex;
+    gap: 10px;
+}
+
+.difficulty-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 8px 14px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: all 0.2s ease;
+}
+
+.difficulty-option:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+.difficulty-option input:checked + span {
+    color: #ffe066;
+    font-weight: bold;
+}
+
+/* --- 方块图片设置 --- */
+.block-image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.block-image-inputs {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 6px;
+}
+
+.block-image-input {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    transition: all 0.2s ease;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.block-image-input:hover {
+    transform: translateY(-2px) scale(1.05);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.block-image-input img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- 上传按钮 --- */
+.upload-btn-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.upload-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.upload-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(102, 126, 234, 0.5);
+}
+
+.upload-btn:active {
+    transform: translateY(0);
+}
+
+.upload-icon {
+    font-size: 18px;
+}
+
+.upload-text {
+    font-size: 14px;
+}
+
+.bg-image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.clear-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #fff;
+    background: rgba(255, 107, 107, 0.35);
+    border: 1px solid rgba(255, 107, 107, 0.5);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 600;
+}
+
+.clear-btn:hover {
+    background: rgba(255, 107, 107, 0.6);
+    border-color: rgba(255, 107, 107, 0.8);
+    transform: translateY(-1px);
+}
+
+/* --- 画布宽度输入 --- */
+#size-slider {
+    width: 150px;
+    cursor: pointer;
+    accent-color: #667eea;
+}
+
+#size-input {
+    width: 80px;
+    padding: 6px 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    color: #ffe066;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -moz-appearance: textfield;
+}
+
+#size-input::-webkit-outer-spin-button,
+#size-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#size-input:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+#size-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.4);
+}
+
+/* --- 游戏方块 --- */
+.current-block {
+    position: absolute;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: left 0.1s ease;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.placed-block {
+    position: absolute;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    animation: appear 0.2s ease;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.block-number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* --- 方块动画 --- */
+@keyframes appear {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes disappear {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+/* --- 游戏结束面板（简洁版）--- */
+.game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.85);
+    padding: 30px 36px;
+    border-radius: 20px;
+    text-align: center;
+    z-index: 100;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    width: 80%;
+}
+
+.game-over h2 {
+    color: #ff6b6b;
+    font-size: 28px;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 8px rgba(255, 107, 107, 0.4);
+}
+
+.game-over p {
+    color: #fff;
+    font-size: 17px;
+    margin-bottom: 24px;
+}
+
+.game-over .button-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+.game-over .restart-btn {
+    padding: 14px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 6px 18px rgba(102, 126, 234, 0.4);
+}
+
+.game-over .restart-btn:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.6);
+}
+
+.game-over .setting-btn {
+    padding: 10px 34px;
+    font-size: 15px;
+}
+
+/* --- 滚动条美化（设置面板内部） --- */
+.settings-panel::-webkit-scrollbar {
+    width: 8px;
+}
+
+.settings-panel::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.settings-panel::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.5);
+    border-radius: 4px;
+}
+
+.settings-panel::-webkit-scrollbar-thumb:hover {
+    background: rgba(102, 126, 234, 0.7);
+}
